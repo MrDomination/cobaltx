@@ -1,11 +1,9 @@
-[README.md](https://github.com/user-attachments/files/28712718/README.md)
+[README_1.md](https://github.com/user-attachments/files/28712811/README_1.md)
 <div align="center">
-
-<img src="https://raw.githubusercontent.com/MrDomination/cobaltx/main/docs/logo.png" alt="CobaltX Logo" width="180"/>
 
 # CobaltX
 
-### Forged for play.
+### 🎮 Forged for play.
 
 **A gaming-focused Arch-based Linux distribution.**
 
