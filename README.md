@@ -1,3 +1,8 @@
+[README.md](https://github.com/user-attachments/files/28712718/README.md)
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/MrDomination/cobaltx/main/docs/logo.png" alt="CobaltX Logo" width="180"/>
+
 # CobaltX
 
 ### Forged for play.
@@ -8,8 +13,9 @@
 [![Version](https://img.shields.io/badge/version-0.1.0-00E5FF.svg)](https://github.com/MrDomination/cobaltx/releases)
 [![Arch Based](https://img.shields.io/badge/based%20on-Arch%20Linux-0047AB.svg)](https://archlinux.org/)
 [![Desktop](https://img.shields.io/badge/desktop-KDE%20Plasma%206-1d99f3.svg)](https://kde.org/plasma-desktop/)
+[![Buy Me A Coffee](https://img.shields.io/badge/support-Buy%20Me%20A%20Coffee-FFDD00.svg)](https://buymeacoffee.com/cobaltx)
 
-[**🌐 Website**](https://mrdomination.github.io/cobaltx/) · [**📥 Download**](https://mrdomination.github.io/cobaltx/) · [**🐛 Issues**](https://github.com/MrDomination/cobaltx/issues)
+[**🌐 Website**](https://mrdomination.github.io/cobaltx/) · [**📥 Download**](https://mrdomination.github.io/cobaltx/) · [**☕ Support**](https://buymeacoffee.com/cobaltx) · [**🐛 Issues**](https://github.com/MrDomination/cobaltx/issues)
 
 </div>
 
@@ -101,6 +107,15 @@ CobaltX is open source! Contributions are welcome:
 - 📝 **Improve documentation**
 - 🌍 **Translate** the distro
 
+## ☕ Support CobaltX
+
+CobaltX is a one-person project built in spare time. If you find it useful, consider supporting development:
+
+- ☕ **[Buy me a coffee](https://buymeacoffee.com/cobaltx)** — directly funds late-night coding for v0.2
+- ⭐ **Star this repo** — free, instant, and means a lot
+- 📢 **Share CobaltX** — tell other Linux gamers about it
+- 🐛 **Report bugs and feedback** — helps make v0.2 better
+
 ## 🗺️ Roadmap
 
 ### v0.2 — Planned
@@ -142,7 +157,7 @@ CobaltX is crafted in **Phuket, Thailand** by a passionate gamer who wanted Linu
 
 <div align="center">
 
-**[🌐 Website](https://mrdomination.github.io/cobaltx/)** · **[📥 Download](https://mrdomination.github.io/cobaltx/)** · **[🐛 Issues](https://github.com/MrDomination/cobaltx/issues)**
+**[🌐 Website](https://mrdomination.github.io/cobaltx/)** · **[📥 Download](https://mrdomination.github.io/cobaltx/)** · **[☕ Support](https://buymeacoffee.com/cobaltx)** · **[🐛 Issues](https://github.com/MrDomination/cobaltx/issues)**
 
 Made with 💙 in Phuket · Forged for play
 
