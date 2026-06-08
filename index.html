@@ -438,6 +438,76 @@
     font-weight: 500;
   }
 
+  /* Support Section */
+  .support-section {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 71, 171, 0.15) 0%, rgba(0, 229, 255, 0.05) 100%);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    border-radius: 24px;
+    padding: 4rem 2rem;
+    margin-top: 2rem;
+  }
+
+  .support-icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    animation: wiggle 4s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  .support-desc {
+    font-size: 1.1rem;
+    color: var(--ice-dim);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  .support-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 2rem;
+    background: #FFDD00;
+    color: #0A0908;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 8px 24px rgba(255, 221, 0, 0.3);
+  }
+
+  .support-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(255, 221, 0, 0.4);
+  }
+
+  .support-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .support-alt {
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .support-alt a {
+    color: var(--cyan);
+    text-decoration: none;
+  }
+
+  .support-alt a:hover {
+    text-decoration: underline;
+  }
+
   /* Footer */
   footer {
     background: var(--navy-deep);
@@ -527,6 +597,7 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#gaming">Gaming</a></li>
     <li><a href="#install">Install</a></li>
+    <li><a href="#support">Support</a></li>
     <li><a href="https://github.com/MrDomination/cobaltx" target="_blank">GitHub</a></li>
   </ul>
 </nav>
@@ -714,6 +785,31 @@
   </div>
 </section>
 
+<!-- Support -->
+<section id="support">
+  <div class="support-section reveal">
+    <div class="support-icon">☕</div>
+    <p class="section-label">// Support</p>
+    <h2 class="section-title">Fuel the next release.</h2>
+    <p class="support-desc">
+      CobaltX is a one-person project built in spare time. If it makes your gaming life better, consider buying me a coffee — it directly funds late-night coding for v0.2.
+    </p>
+    <a class="support-btn" href="https://buymeacoffee.com/cobaltx" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+        <line x1="6" y1="1" x2="6" y2="4"/>
+        <line x1="10" y1="1" x2="10" y2="4"/>
+        <line x1="14" y1="1" x2="14" y2="4"/>
+      </svg>
+      Buy me a coffee
+    </a>
+    <p class="support-alt">
+      Or <a href="https://github.com/MrDomination/cobaltx" target="_blank">⭐ star the repo on GitHub</a> — that's free and means a lot!
+    </p>
+  </div>
+</section>
+
 <!-- Footer -->
 <footer>
   <div class="footer-content">
@@ -729,6 +825,7 @@
       <a href="https://github.com/MrDomination/cobaltx" target="_blank">GitHub</a>
       <a href="https://github.com/MrDomination/cobaltx/releases" target="_blank">Releases</a>
       <a href="https://github.com/MrDomination/cobaltx/issues" target="_blank">Issues</a>
+      <a href="https://buymeacoffee.com/cobaltx" target="_blank">Support</a>
       <a href="#install">Install Guide</a>
     </div>
     <p class="footer-text">
