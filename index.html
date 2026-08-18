@@ -6,16 +6,13 @@
 <title>CobaltX — Forged for play</title>
 <meta name="description" content="CobaltX is a gaming-focused Arch-based Linux distribution. Pre-installed with Steam, Heroic, Bottles, RetroArch, and more. Forged for play.">
 <meta name="theme-color" content="#0047AB">
-
 <!-- Open Graph -->
 <meta property="og:title" content="CobaltX — Forged for play">
 <meta property="og:description" content="A gaming-focused Arch-based Linux distribution.">
 <meta property="og:type" content="website">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
   :root {
     --cobalt: #0047AB;
@@ -29,17 +26,14 @@
     --ice-dim: #B8D4E8;
     --text-muted: #7A8FA8;
   }
-
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
     font-family: 'Space Grotesk', -apple-system, sans-serif;
     background: var(--navy);
@@ -51,7 +45,6 @@
       radial-gradient(at 80% 80%, rgba(0, 229, 255, 0.08) 0%, transparent 50%);
     background-attachment: fixed;
   }
-
   /* Subtle hex pattern background */
   body::before {
     content: '';
@@ -67,7 +60,6 @@
     pointer-events: none;
     z-index: 0;
   }
-
   /* Navigation */
   nav {
     position: fixed;
@@ -84,7 +76,6 @@
     justify-content: space-between;
     align-items: center;
   }
-
   .nav-brand {
     display: flex;
     align-items: center;
@@ -93,25 +84,21 @@
     font-size: 1.25rem;
     letter-spacing: -0.02em;
   }
-
   .nav-brand svg {
     width: 32px;
     height: 32px;
   }
-
   .nav-brand-text {
     background: linear-gradient(90deg, var(--ice) 0%, var(--cyan) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
   .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
   }
-
   .nav-links a {
     color: var(--ice-dim);
     text-decoration: none;
@@ -119,15 +106,12 @@
     font-weight: 500;
     transition: color 0.2s;
   }
-
   .nav-links a:hover {
     color: var(--cyan);
   }
-
   @media (max-width: 700px) {
     .nav-links { display: none; }
   }
-
   /* Hero */
   .hero {
     min-height: 100vh;
@@ -140,7 +124,6 @@
     position: relative;
     z-index: 1;
   }
-
   .hero-logo {
     width: 180px;
     height: 180px;
@@ -148,12 +131,10 @@
     filter: drop-shadow(0 0 40px rgba(0, 229, 255, 0.3));
     animation: float 6s ease-in-out infinite;
   }
-
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-12px); }
   }
-
   .hero h1 {
     font-size: clamp(3rem, 10vw, 6rem);
     font-weight: 700;
@@ -165,7 +146,6 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
   .hero-tagline {
     font-size: 1.5rem;
     color: var(--cyan);
@@ -173,14 +153,12 @@
     margin-bottom: 0.75rem;
     letter-spacing: 0.02em;
   }
-
   .hero-version {
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-muted);
     font-size: 0.9rem;
     margin-bottom: 2.5rem;
   }
-
   .hero-desc {
     font-size: 1.15rem;
     color: var(--ice-dim);
@@ -188,7 +166,6 @@
     margin-bottom: 3rem;
     line-height: 1.7;
   }
-
   .download-btn {
     display: inline-flex;
     align-items: center;
@@ -207,24 +184,78 @@
     position: relative;
     overflow: hidden;
   }
-
   .download-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 0 4px rgba(0, 229, 255, 0.2), 0 12px 40px rgba(0, 71, 171, 0.5);
   }
-
   .download-btn svg {
     width: 24px;
     height: 24px;
   }
-
   .download-info {
     margin-top: 1.5rem;
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-muted);
     font-size: 0.85rem;
   }
-
+  /* What's New Section */
+  .whats-new {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(0, 71, 171, 0.15) 100%);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    margin-top: 2rem;
+  }
+  .whats-new-badge {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--navy);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .whats-new-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    color: var(--ice);
+  }
+  .whats-new-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  .whats-new-item {
+    background: rgba(10, 20, 40, 0.4);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.25rem;
+    transition: all 0.2s;
+  }
+  .whats-new-item:hover {
+    border-color: rgba(0, 229, 255, 0.35);
+    transform: translateY(-2px);
+  }
+  .whats-new-item-icon {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .whats-new-item-title {
+    font-weight: 600;
+    color: var(--ice);
+    margin-bottom: 0.35rem;
+    font-size: 1rem;
+  }
+  .whats-new-item-desc {
+    font-size: 0.875rem;
+    color: var(--ice-dim);
+    line-height: 1.5;
+  }
   /* Sections */
   section {
     max-width: 1100px;
@@ -233,7 +264,6 @@
     position: relative;
     z-index: 1;
   }
-
   .section-label {
     color: var(--cyan);
     font-family: 'JetBrains Mono', monospace;
@@ -242,7 +272,6 @@
     text-transform: uppercase;
     margin-bottom: 1rem;
   }
-
   .section-title {
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 700;
@@ -250,21 +279,18 @@
     margin-bottom: 1rem;
     color: var(--ice);
   }
-
   .section-desc {
     font-size: 1.1rem;
     color: var(--ice-dim);
     max-width: 600px;
     margin-bottom: 3rem;
   }
-
   /* Features Grid */
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
   }
-
   .feature-card {
     background: rgba(0, 71, 171, 0.08);
     border: 1px solid rgba(0, 229, 255, 0.15);
@@ -274,7 +300,6 @@
     position: relative;
     overflow: hidden;
   }
-
   .feature-card::before {
     content: '';
     position: absolute;
@@ -286,17 +311,14 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-
   .feature-card:hover {
     background: rgba(0, 71, 171, 0.15);
     border-color: rgba(0, 229, 255, 0.4);
     transform: translateY(-4px);
   }
-
   .feature-card:hover::before {
     opacity: 1;
   }
-
   .feature-icon {
     width: 48px;
     height: 48px;
@@ -309,7 +331,6 @@
     color: var(--cyan);
     font-size: 1.5rem;
   }
-
   .feature-card h3 {
     font-size: 1.25rem;
     font-weight: 600;
@@ -317,13 +338,11 @@
     color: var(--ice);
     letter-spacing: -0.02em;
   }
-
   .feature-card p {
     color: var(--ice-dim);
     font-size: 0.95rem;
     line-height: 1.6;
   }
-
   /* Games stack section */
   .games-stack {
     display: grid;
@@ -331,7 +350,6 @@
     gap: 1rem;
     margin-top: 2rem;
   }
-
   .game-tool {
     background: rgba(10, 20, 40, 0.6);
     border: 1px solid rgba(0, 229, 255, 0.2);
@@ -340,29 +358,24 @@
     text-align: center;
     transition: all 0.2s;
   }
-
   .game-tool:hover {
     border-color: var(--cyan);
     background: rgba(0, 229, 255, 0.05);
   }
-
   .game-tool-name {
     font-weight: 600;
     color: var(--ice);
     margin-bottom: 0.25rem;
   }
-
   .game-tool-desc {
     font-size: 0.85rem;
     color: var(--text-muted);
   }
-
   /* Install Steps */
   .install-steps {
     display: grid;
     gap: 1.5rem;
   }
-
   .install-step {
     display: flex;
     gap: 1.5rem;
@@ -372,7 +385,6 @@
     border-radius: 12px;
     align-items: flex-start;
   }
-
   .step-number {
     background: var(--cyan);
     color: var(--navy);
@@ -386,18 +398,15 @@
     flex-shrink: 0;
     font-family: 'JetBrains Mono', monospace;
   }
-
   .step-content h3 {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
     color: var(--ice);
   }
-
   .step-content p {
     color: var(--ice-dim);
     font-size: 0.95rem;
   }
-
   .step-content code {
     background: var(--navy-deep);
     padding: 2px 8px;
@@ -406,7 +415,6 @@
     font-size: 0.9em;
     color: var(--cyan);
   }
-
   /* Requirements table */
   .req-table {
     background: rgba(0, 71, 171, 0.08);
@@ -415,29 +423,24 @@
     padding: 1rem;
     margin-top: 1rem;
   }
-
   .req-row {
     display: flex;
     justify-content: space-between;
     padding: 0.75rem 1rem;
     border-bottom: 1px solid rgba(0, 229, 255, 0.1);
   }
-
   .req-row:last-child {
     border-bottom: none;
   }
-
   .req-label {
     color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.9rem;
   }
-
   .req-value {
     color: var(--ice);
     font-weight: 500;
   }
-
   /* Support Section */
   .support-section {
     text-align: center;
@@ -447,19 +450,16 @@
     padding: 4rem 2rem;
     margin-top: 2rem;
   }
-
   .support-icon {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
     display: inline-block;
     animation: wiggle 4s ease-in-out infinite;
   }
-
   @keyframes wiggle {
     0%, 100% { transform: rotate(-5deg); }
     50% { transform: rotate(5deg); }
   }
-
   .support-desc {
     font-size: 1.1rem;
     color: var(--ice-dim);
@@ -467,7 +467,6 @@
     margin: 0 auto 2.5rem;
     line-height: 1.7;
   }
-
   .support-btn {
     display: inline-flex;
     align-items: center;
@@ -482,32 +481,26 @@
     transition: all 0.3s;
     box-shadow: 0 8px 24px rgba(255, 221, 0, 0.3);
   }
-
   .support-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 32px rgba(255, 221, 0, 0.4);
   }
-
   .support-btn svg {
     width: 24px;
     height: 24px;
   }
-
   .support-alt {
     margin-top: 1.5rem;
     color: var(--text-muted);
     font-size: 0.9rem;
   }
-
   .support-alt a {
     color: var(--cyan);
     text-decoration: none;
   }
-
   .support-alt a:hover {
     text-decoration: underline;
   }
-
   /* Footer */
   footer {
     background: var(--navy-deep);
@@ -517,12 +510,10 @@
     position: relative;
     z-index: 1;
   }
-
   .footer-content {
     max-width: 1100px;
     margin: 0 auto;
   }
-
   .footer-brand {
     display: flex;
     align-items: center;
@@ -532,12 +523,10 @@
     font-size: 1.5rem;
     font-weight: 700;
   }
-
   .footer-brand svg {
     width: 40px;
     height: 40px;
   }
-
   .footer-links {
     display: flex;
     gap: 2rem;
@@ -545,36 +534,30 @@
     margin-bottom: 1.5rem;
     flex-wrap: wrap;
   }
-
   .footer-links a {
     color: var(--ice-dim);
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
   }
-
   .footer-links a:hover {
     color: var(--cyan);
   }
-
   .footer-text {
     color: var(--text-muted);
     font-size: 0.85rem;
     line-height: 1.7;
   }
-
   .footer-text a {
     color: var(--cyan-dim);
     text-decoration: none;
   }
-
   /* Scroll reveal animation */
   .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s, transform 0.8s;
   }
-
   .reveal.active {
     opacity: 1;
     transform: translateY(0);
@@ -582,7 +565,6 @@
 </style>
 </head>
 <body>
-
 <!-- Navigation -->
 <nav>
   <div class="nav-brand">
@@ -594,6 +576,7 @@
     <span class="nav-brand-text">CobaltX</span>
   </div>
   <ul class="nav-links">
+    <li><a href="#whats-new">What's New</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#gaming">Gaming</a></li>
     <li><a href="#install">Install</a></li>
@@ -601,7 +584,6 @@
     <li><a href="https://github.com/MrDomination/cobaltx" target="_blank">GitHub</a></li>
   </ul>
 </nav>
-
 <!-- Hero -->
 <section class="hero">
   <svg class="hero-logo" viewBox="0 0 680 690" xmlns="http://www.w3.org/2000/svg">
@@ -611,12 +593,12 @@
   </svg>
   <h1>CobaltX</h1>
   <p class="hero-tagline">Forged for play</p>
-  <p class="hero-version">v0.1.0 — Forged</p>
+  <p class="hero-version">v0.2 — Sparked</p>
   <p class="hero-desc">
     A gaming-focused Arch-based Linux distribution.
     Steam, Heroic Games Launcher, Bottles, Lutris, Wine, and RetroArch — pre-installed and ready.
   </p>
-  <a class="download-btn" href="https://pub-cccf87fd7a134c0c9247dd0695e84377.r2.dev/cobaltx-0.1.0-x86_64.iso" download>
+  <a class="download-btn" href="https://pub-cccf87fd7a134c0c9247dd0695e84377.r2.dev/cobaltx-0.2-x86_64.iso" download>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
       <polyline points="7 10 12 15 17 10"/>
@@ -624,9 +606,54 @@
     </svg>
     Download CobaltX
   </a>
-  <p class="download-info">cobaltx-0.1.0-x86_64.iso · 5.6 GB · SHA256 verified</p>
+  <p class="download-info">cobaltx-0.2-x86_64.iso · 6.0 GB · SHA256 verified</p>
 </section>
-
+<!-- What's New in v0.2 -->
+<section id="whats-new">
+  <div class="reveal">
+    <p class="section-label">// v0.2 — Sparked</p>
+    <h2 class="section-title">What's new.</h2>
+    <p class="section-desc">
+      Six major upgrades over v0.1.0 — polish, power, and out-of-the-box gaming refinements.
+    </p>
+  </div>
+  <div class="whats-new reveal">
+    <span class="whats-new-badge">RELEASED</span>
+    <h3 class="whats-new-title">Sparked. Everything you'd expect from a v0.2 — and more.</h3>
+    <div class="whats-new-grid">
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">🎨</span>
+        <div class="whats-new-item-title">Plymouth boot splash</div>
+        <div class="whats-new-item-desc">Beautiful animated boot with the CobaltX logo on dark navy.</div>
+      </div>
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">📦</span>
+        <div class="whats-new-item-title">yay pre-installed</div>
+        <div class="whats-new-item-desc">Full AUR access out of the box. Install anything with one command.</div>
+      </div>
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">💻</span>
+        <div class="whats-new-item-title">NVIDIA one-click installer</div>
+        <div class="whats-new-item-desc">Detects your GPU, installs proprietary drivers, configures Wayland.</div>
+      </div>
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">🦊</span>
+        <div class="whats-new-item-title">CobaltX Welcome App</div>
+        <div class="whats-new-item-desc">Custom first-boot experience with quick actions and system info.</div>
+      </div>
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">🎯</span>
+        <div class="whats-new-item-title">Improved KDE integration</div>
+        <div class="whats-new-item-desc">Custom icons, no duplicate popups, polished defaults everywhere.</div>
+      </div>
+      <div class="whats-new-item">
+        <span class="whats-new-item-icon">✨</span>
+        <div class="whats-new-item-title">Rebranded to Sparked</div>
+        <div class="whats-new-item-desc">Fresh version, fresh codename. Latest linux-zen and KDE Plasma 6.</div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- Features -->
 <section id="features">
   <div class="reveal">
@@ -660,7 +687,7 @@
     <div class="feature-card reveal">
       <div class="feature-icon">🚀</div>
       <h3>Mesa + Vulkan</h3>
-      <p>Latest graphics drivers for Intel and AMD GPUs. NVIDIA via one extra package.</p>
+      <p>Latest graphics drivers for Intel and AMD GPUs. NVIDIA via one-click installer.</p>
     </div>
     <div class="feature-card reveal">
       <div class="feature-icon">🛡️</div>
@@ -669,7 +696,6 @@
     </div>
   </div>
 </section>
-
 <!-- Gaming Stack -->
 <section id="gaming">
   <div class="reveal">
@@ -714,7 +740,6 @@
     </div>
   </div>
 </section>
-
 <!-- Requirements -->
 <section>
   <div class="reveal">
@@ -741,11 +766,10 @@
     </div>
     <div class="req-row">
       <span class="req-label">GPU</span>
-      <span class="req-value">Intel / AMD (out of box) · NVIDIA (one extra package)</span>
+      <span class="req-value">Intel / AMD (out of box) · NVIDIA (one-click installer)</span>
     </div>
   </div>
 </section>
-
 <!-- Install -->
 <section id="install">
   <div class="reveal">
@@ -758,7 +782,7 @@
       <div class="step-number">1</div>
       <div class="step-content">
         <h3>Download the ISO</h3>
-        <p>Click the download button above. The 5.6 GB ISO downloads directly to your machine.</p>
+        <p>Click the download button above. The 6.0 GB ISO downloads directly to your machine.</p>
       </div>
     </div>
     <div class="install-step reveal">
@@ -784,7 +808,6 @@
     </div>
   </div>
 </section>
-
 <!-- Support -->
 <section id="support">
   <div class="support-section reveal">
@@ -792,7 +815,7 @@
     <p class="section-label">// Support</p>
     <h2 class="section-title">Fuel the next release.</h2>
     <p class="support-desc">
-      CobaltX is a one-person project built in spare time. If it makes your gaming life better, consider buying me a coffee — it directly funds late-night coding for v0.2.
+      CobaltX is a one-person project built in spare time. If it makes your gaming life better, consider buying me a coffee — it directly funds late-night coding for v0.3.
     </p>
     <a class="support-btn" href="https://buymeacoffee.com/cobaltx" target="_blank">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -809,7 +832,6 @@
     </p>
   </div>
 </section>
-
 <!-- Footer -->
 <footer>
   <div class="footer-content">
@@ -829,12 +851,11 @@
       <a href="#install">Install Guide</a>
     </div>
     <p class="footer-text">
-      Built on Arch Linux · Powered by KDE Plasma · Licensed GPL-3.0<br>
+      v0.2 "Sparked" · Built on Arch Linux · Powered by KDE Plasma · Licensed GPL-3.0<br>
       Made with 💙 in Phuket, Thailand
     </p>
   </div>
 </footer>
-
 <script>
   // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
@@ -844,9 +865,7 @@
       }
     });
   }, { threshold: 0.1 });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
