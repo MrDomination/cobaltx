@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/31173147/README.md)
+[README.md](https://github.com/user-attachments/files/33615122/README.md)
 <div align="center">
 
 # CobaltX
@@ -8,8 +8,8 @@
 **A gaming-focused Arch-based Linux distribution.**
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/version-0.2-00E5FF.svg)](https://github.com/MrDomination/cobaltx/releases)
-[![Codename](https://img.shields.io/badge/codename-Sparked-00E5FF.svg)](https://mrdomination.github.io/cobaltx/)
+[![Version](https://img.shields.io/badge/version-0.3-00E5FF.svg)](https://github.com/MrDomination/cobaltx/releases)
+[![Codename](https://img.shields.io/badge/codename-Fullscreened-00E5FF.svg)](https://mrdomination.github.io/cobaltx/)
 [![Arch Based](https://img.shields.io/badge/based%20on-Arch%20Linux-0047AB.svg)](https://archlinux.org/)
 [![Desktop](https://img.shields.io/badge/desktop-KDE%20Plasma%206-1d99f3.svg)](https://kde.org/plasma-desktop/)
 [![Buy Me A Coffee](https://img.shields.io/badge/support-Buy%20Me%20A%20Coffee-FFDD00.svg)](https://buymeacoffee.com/cobaltx)
@@ -26,14 +26,17 @@ CobaltX is a Linux distribution built specifically for **gamers**, on the rock-s
 
 Built from scratch using `archiso` with a custom Calamares installer, custom branding, and the `linux-zen` kernel for low-latency desktop performance.
 
-## ✨ What's New in v0.2 "Sparked"
+## ✨ What's New in v0.3 "Fullscreened"
 
-- 🎨 **Plymouth boot splash** — Beautiful animated boot with the CobaltX logo on dark navy
-- 📦 **yay pre-installed** — Full AUR access out of the box
-- 💻 **NVIDIA one-click installer** — Detects GPU, installs proprietary drivers, configures Wayland
-- 🦊 **CobaltX Welcome App** — Custom first-boot experience (native PyQt6 + WebEngine)
-- 🎯 **Improved KDE integration** — Custom icons, no duplicate popups, polished defaults
-- ✨ **Rebranded to Sparked** — Fresh version, latest linux-zen and KDE Plasma 6
+- 🎮 **X Mode** — a full-screen, controller-first game launcher with its own login session. Steam, Heroic, Bottles, Lutris and your own games in one place
+- 🚀 **Boot into X Mode** — pick X Mode or the desktop in the installer, switch between them anytime
+- 🕹️ **Handheld support** — built-in controls and back buttons on the ROG Ally family, Legion Go, MSI Claw and more via Handheld Daemon
+- ⚡ **Quick Settings & TDP** — performance modes, power limit in watts, brightness and volume, in X Mode and on the desktop
+- ⌨️ **CobaltX Keyboard** — themed on-screen keyboard that types into any app or game (controller or touch)
+- 🖱️ **Controller cursor** — use the stick as a mouse on the desktop
+- 📚 **Library + Add a game** — add AppImages, `.exe` files, scripts or ROMs that weren't found automatically
+- 🪟 **Open apps** — resume or close running apps, with Force close for frozen ones
+- 🛠️ **Real-hardware fixes** — safer install next to other systems on a shared EFI partition, smarter NVIDIA driver setup, new wallpapers, CobaltX fastfetch logo
 
 ## ✨ Highlights
 
@@ -42,6 +45,7 @@ Built from scratch using `archiso` with a custom Calamares installer, custom bra
 - 🖥️ **KDE Plasma 6** — Modern, beautiful, fully-featured desktop environment
 - 📦 **Arch Linux foundation** — Bleeding-edge packages, full AUR access, rolling release
 - 🎨 **Custom CobaltX branding** — Polished UI from boot to desktop
+- 🎮 **X Mode** — Console-style, controller-first launcher for TVs and handhelds
 - 🚀 **Modern boot** — systemd-boot with UEFI support, plus Plymouth splash
 - 🛡️ **Ready for NVIDIA** — Intel and AMD GPUs work out of the box; NVIDIA via one-click installer
 - 🦊 **Custom Welcome App** — First-boot greeter with quick actions & system info
@@ -50,7 +54,7 @@ Built from scratch using `archiso` with a custom Calamares installer, custom bra
 
 The latest CobaltX ISO is available at the [**official website**](https://mrdomination.github.io/cobaltx/).
 
-**Current release:** CobaltX 0.2 "Sparked" — [`cobaltx-0.2-x86_64.iso`](https://pub-cccf87fd7a134c0c9247dd0695e84377.r2.dev/cobaltx-0.2-x86_64.iso) (~6.0 GB)
+**Current release:** CobaltX 0.3 "Fullscreened" — [`cobaltx-0.3-x86_64.iso`](https://pub-cccf87fd7a134c0c9247dd0695e84377.r2.dev/cobaltx-0.3-x86_64.iso) (~6.4 GB)
 
 ## 🚀 Installation
 
@@ -61,13 +65,14 @@ The latest CobaltX ISO is available at the [**official website**](https://mrdomi
    - **balenaEtcher** (cross-platform)
    - Or `dd`:
      ```bash
-     sudo dd if=cobaltx-0.2-x86_64.iso of=/dev/sdX bs=4M status=progress
+     sudo dd if=cobaltx-0.3-x86_64.iso of=/dev/sdX bs=4M status=progress
      ```
      *(Replace `/dev/sdX` with your USB device — be careful!)*
 3. **Boot** from USB (UEFI mode required)
 4. **Click** "Install CobaltX" on the desktop
 5. **Follow** the Calamares installer wizard
-6. **Reboot** and enjoy!
+6. **Choose** Desktop or X Mode on the X Mode page of the installer
+7. **Reboot** and enjoy!
 
 ## 🎮 What's Inside
 
@@ -87,11 +92,14 @@ CobaltX includes everything you need to game on Linux out of the box:
 - 🎥 **OBS Studio** — Screen recording & streaming
 - 💬 **Discord** — Voice chat with your team
 
-### System Components (v0.2 additions)
-- 🎨 **Plymouth** — Animated boot splash
-- 📦 **yay** — AUR helper pre-installed
+### CobaltX Extras
+- 🎮 **X Mode** — Full-screen controller launcher and session
+- 🕹️ **Handheld Daemon** — Handheld controls (ROG Ally, Legion Go, MSI Claw, …)
+- ⌨️ **CobaltX Keyboard** — On-screen keyboard
 - 💻 **NVIDIA installer** — One-click GPU driver setup
 - 🦊 **CobaltX Welcome App** — First-boot experience
+- 🎨 **Plymouth** — Animated boot splash
+- 📦 **yay** — AUR helper pre-installed
 
 ## 🔧 System Requirements
 
@@ -102,6 +110,7 @@ CobaltX includes everything you need to game on Linux out of the box:
 | **Storage** | 30 GB minimum |
 | **Boot** | UEFI required |
 | **GPU** | Intel/AMD (out of box) · NVIDIA (one-click installer) |
+| **Handhelds** | ROG Ally / Ally X / Xbox Ally, Legion Go, MSI Claw, Steam Deck and more |
 
 ## 🛠️ Build From Source
 
@@ -117,7 +126,7 @@ sudo rm -rf cobaltx-buildwork
 sudo mkarchiso -v -w cobaltx-buildwork -o out .
 ```
 
-The built ISO will appear in `out/cobaltx-0.2-x86_64.iso`.
+The built ISO will appear in `out/cobaltx-0.3-x86_64.iso`.
 
 ## 🤝 Contributing
 
@@ -132,26 +141,26 @@ CobaltX is open source! Contributions are welcome:
 
 CobaltX is a one-person project built in spare time. If you find it useful, consider supporting development:
 
-- ☕ **[Buy me a coffee](https://buymeacoffee.com/cobaltx)** — directly funds late-night coding for v0.3
+- ☕ **[Buy me a coffee](https://buymeacoffee.com/cobaltx)** — directly funds late-night coding for v0.4
 - ⭐ **Star this repo** — free, instant, and means a lot
 - 📢 **Share CobaltX** — tell other Linux gamers about it
-- 🐛 **Report bugs and feedback** — helps make v0.3 better
+- 🐛 **Report bugs and feedback** — helps make v0.4 better
 
 ## 📋 Roadmap
 
-Planned for future releases:
+Ideas for future releases:
 
-- 🚪 Custom SDDM login theme
-- 🎨 Improved KDE defaults (dark mode, dock, effects)
+- 🎛️ Per-game gamescope (FSR upscaling, frame limits) from X Mode
+- 🖼️ Task view with live window previews
+- 🌍 More keyboard layouts for the on-screen keyboard
 - 🛡️ Security hardening defaults
-- 🎮 Steam Deck-style Game Mode
 - 🖥️ Better hardware detection & recommendations
-- 📦 Enhanced package selection
 
 ## ⚠️ Known Issues
 
-- v0.2 "Sparked" — Some rough edges may still exist; please report what you find!
-- SDDM login screen uses default Breeze theme (custom theme deferred to v0.3)
+- The on-screen keyboard uses the US layout
+- The controller cursor in X Mode also moves the mouse in games — turn it off before playing
+- GOverlay was removed (crashes on first start in its current version); MangoHud is still included
 
 ## 📝 License
 
