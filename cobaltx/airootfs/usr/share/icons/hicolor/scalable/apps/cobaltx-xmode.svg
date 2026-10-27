@@ -1,0 +1,22 @@
+<svg viewBox="0 0 680 690" xmlns="http://www.w3.org/2000/svg">
+  <!-- CobaltX shield -->
+  <polygon points="340,40 620,200 620,520 340,680 60,520 60,200" fill="#0047AB" stroke="#00E5FF" stroke-width="10"/>
+  <polygon points="340,100 570,235 570,485 340,620 110,485 110,235" fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.5"/>
+  <!-- Controller -->
+  <g transform="translate(0,-22)">
+    <path fill="#00E5FF" d="M 255.8 282 H 424.2 C 463.2 282 483.5 310 492.1 352 L 511.6 442 C 519.4 482 496.0 507 472.6 492 L 429.7 457 C 421.9 450 414.1 447 402.4 447 H 277.6 C 265.9 447 258.1 450 250.3 457 L 207.4 492 C 184.0 507 160.6 482 168.4 442 L 187.9 352 C 196.5 310 216.8 282 255.8 282 Z"/>
+    <!-- d-pad -->
+    <rect x="243" y="339" width="48" height="18" rx="4" fill="#0047AB"/>
+    <rect x="258" y="324" width="18" height="48" rx="4" fill="#0047AB"/>
+    <!-- face buttons -->
+    <circle cx="414" cy="327" r="10.5" fill="#0047AB"/>
+    <circle cx="414" cy="369" r="10.5" fill="#0047AB"/>
+    <circle cx="393" cy="348" r="10.5" fill="#0047AB"/>
+    <circle cx="435" cy="348" r="10.5" fill="#0047AB"/>
+    <!-- sticks -->
+    <circle cx="306" cy="408" r="21" fill="#0047AB"/>
+    <circle cx="306" cy="408" r="10" fill="#00E5FF"/>
+    <circle cx="374" cy="408" r="21" fill="#0047AB"/>
+    <circle cx="374" cy="408" r="10" fill="#00E5FF"/>
+  </g>
+</svg>

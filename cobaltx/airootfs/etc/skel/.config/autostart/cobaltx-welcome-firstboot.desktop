@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=CobaltX Welcome
+Comment=First-boot welcome experience
+Exec=/usr/local/bin/cobaltx-welcome-app
+Icon=cobaltx-welcome
+Terminal=false
+Categories=System;
+X-GNOME-Autostart-enabled=true
+X-KDE-autostart-after=panel

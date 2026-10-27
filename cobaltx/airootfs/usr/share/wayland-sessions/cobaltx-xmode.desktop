@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=CobaltX X Mode
+Comment=Fullscreen, controller-friendly game mode
+Exec=/usr/local/bin/cobaltx-xmode-session
+DesktopNames=gamescope

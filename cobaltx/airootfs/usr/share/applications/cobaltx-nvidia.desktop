@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Install NVIDIA Drivers
+GenericName=NVIDIA Driver Installer
+Comment=Install NVIDIA proprietary graphics drivers for CobaltX
+Icon=video-display
+Exec=/usr/local/bin/cobaltx-nvidia-install.sh
+Terminal=true
+Categories=System;Settings;HardwareSettings;
+Keywords=nvidia;driver;gpu;graphics;install;
+StartupNotify=true

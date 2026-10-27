@@ -1,0 +1,23 @@
+#!/bin/bash
+# CobaltX X Mode login session.
+# X Mode runs fullscreen on KWin (the KDE compositor, without the desktop).
+# gamescope can be tried instead with GAMESCOPE=1 in /etc/cobaltx/xmode.conf.
+LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/cobaltx-xmode"
+mkdir -p "$LOG_DIR"
+exec >>"$LOG_DIR/session.log" 2>&1
+echo "=== X Mode session $(date) ==="
+
+export XMODE_SESSION=1
+# (the one-time session switch is reset by a root timer - see session-helper)
+
+if grep -qx "GAMESCOPE=1" /etc/cobaltx/xmode.conf 2>/dev/null && command -v gamescope >/dev/null; then
+    echo "starting gamescope (experimental)"
+    XDG_CURRENT_DESKTOP=gamescope QT_QPA_PLATFORM=xcb \
+        gamescope --fullscreen -- /usr/local/lib/cobaltx/xmode-session-apps && exit 0
+    echo "gamescope failed - using KWin"
+fi
+
+export XDG_CURRENT_DESKTOP=KDE
+export XDG_SESSION_DESKTOP=KDE
+export QT_QPA_PLATFORM=wayland
+exec kwin_wayland --xwayland --exit-with-session /usr/local/lib/cobaltx/xmode-session-apps

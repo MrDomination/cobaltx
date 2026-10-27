@@ -1,0 +1,18 @@
+#!/bin/sh
+# CobaltX On-Screen Keyboard (see /usr/share/cobaltx-keyboard/keyboard.py)
+#   cobaltx-keyboard --toggle      show / hide
+#   cobaltx-keyboard --autostart   desktop login: only start on handhelds
+if [ "$1" = "--autostart" ]; then
+    [ -e /etc/cobaltx/handheld ] || exit 0
+    shift
+fi
+# log (controller buttons etc.) - only for the background helper, not for --toggle
+case "$*" in *--toggle*|*--show*) ;; *)
+    LOG_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/cobaltx-xmode"
+    mkdir -p "$LOG_DIR"
+    [ "$(stat -c %s "$LOG_DIR/keyboard.log" 2>/dev/null || echo 0)" -gt 1000000 ] && mv -f "$LOG_DIR/keyboard.log" "$LOG_DIR/keyboard.log.old"
+    exec >>"$LOG_DIR/keyboard.log" 2>&1
+    echo "=== $(date) ===" ;;
+esac
+export QT_QPA_PLATFORM=xcb          # needs X11 (XWayland) to float above games without taking focus
+exec /usr/bin/python3 /usr/share/cobaltx-keyboard/keyboard.py "$@"

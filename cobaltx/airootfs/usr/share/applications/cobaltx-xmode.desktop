@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=X Mode Launcher
+GenericName=Handheld Game Launcher
+Comment=Open the X Mode game launcher on the desktop
+Exec=cobaltx-xmode
+Icon=cobaltx-xmode
+Terminal=false
+Categories=System;
+Keywords=game;handheld;controller;steam;deck;xmode;
+NoDisplay=true

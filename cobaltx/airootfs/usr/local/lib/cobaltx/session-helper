@@ -1,0 +1,86 @@
+#!/bin/bash
+# Root helper (run through pkexec) that decides which session SDDM logs into.
+#
+# SDDM only reads its settings when it starts, so a switch writes the new
+# autologin target and then restarts SDDM, which ends the current session and
+# logs straight into the new one. There is no Relogin: logging out or closing
+# X Mode goes to the normal login screen instead of looping back.
+set -e
+CONF=/etc/sddm.conf.d/zz-cobaltx-autologin.conf
+SETTINGS=/etc/cobaltx/xmode.conf
+uid="${PKEXEC_UID:-$(id -u)}"
+user="$(id -nu "$uid")"
+[ "$uid" -ge 1000 ] || { echo "refusing for system user"; exit 1; }
+
+# /etc/sddm.conf is read LAST by SDDM, so an [Autologin] Session= there (the
+# installer writes "Session=plasma") would override ours. Remove those keys.
+strip_main_conf() {
+    [ -f /etc/sddm.conf ] || return 0
+    sed -i '/^\[Autologin\]/,/^\[/{/^Session=/d;/^Relogin=/d;/^User=$/d}' /etc/sddm.conf
+}
+
+write_conf() {   # $1 = session name (without .desktop), $2 = optional marker
+    mkdir -p /etc/sddm.conf.d
+    strip_main_conf
+    {
+        echo "# Managed by CobaltX X Mode${2:+ ($2)}"
+        echo "[Autologin]"
+        echo "User=$user"
+        echo "Session=$1.desktop"
+        echo "Relogin=false"
+    } > "$CONF"
+}
+
+xmode_is_default() { grep -qx "AUTOLOGIN=1" "$SETTINGS" 2>/dev/null; }
+
+case "$1" in
+    switch)                                   # switch right now
+        case "$2" in cobaltx-xmode|plasma) ;; *) echo "unknown session"; exit 2 ;; esac
+        write_conf "$2" "cobaltx: switch"
+        # The actual restart runs as its own root job, so it survives the end of
+        # this session (it runs from inside the session that is about to close).
+        systemctl stop cobaltx-session-switch.service cobaltx-session-consume.timer cobaltx-session-consume.service 2>/dev/null || true
+        systemd-run --quiet --collect --unit=cobaltx-session-switch \
+            --setenv=PKEXEC_UID="$uid" "$0" do-switch
+        ;;
+    do-switch)                                # (internal) stop SDDM, wait, start it again
+        # Restarting SDDM in one go raced with the old session still shutting
+        # down -> black screen with a blinking cursor. So: stop, wait until the
+        # user's graphical session is really gone, then start.
+        systemctl stop sddm.service
+        for i in $(seq 1 30); do
+            busy=0
+            for s in $(loginctl list-sessions --no-legend 2>/dev/null | awk -v u="$user" '$3 == u {print $1}'); do
+                t=$(loginctl show-session "$s" -p Type --value 2>/dev/null)
+                case "$t" in wayland|x11) busy=1 ;; esac      # still there (active or closing)
+            done
+            [ "$busy" = 0 ] && break
+            sleep 0.5
+        done
+        sleep 1                               # let the GPU/DRM be released
+        systemctl start sddm.service
+        sleep 3
+        systemctl is-active --quiet sddm.service || { sleep 2; systemctl restart sddm.service; }
+        # once SDDM has used the one-time choice, put the normal startup choice back
+        sleep 15
+        "$0" consume
+        ;;
+    default-on)                               # "Start in X Mode at login" on (next boot)
+        mkdir -p /etc/cobaltx
+        printf '# Set from X Mode\nXMODE_DEFAULT=1\nAUTOLOGIN=1\n' > "$SETTINGS"
+        write_conf cobaltx-xmode
+        ;;
+    default-off)                              # ...off: normal login screen at next boot
+        mkdir -p /etc/cobaltx
+        printf '# Set from X Mode\nXMODE_DEFAULT=0\nAUTOLOGIN=0\n' > "$SETTINGS"
+        rm -f "$CONF"
+        ;;
+    consume)                                  # a session started: the one-time switch is done
+        if xmode_is_default; then
+            write_conf cobaltx-xmode          # next boot goes to X Mode again
+        else
+            rm -f "$CONF"
+        fi
+        ;;
+    *) echo "usage: session-helper switch <session> | default-on | default-off | consume"; exit 2 ;;
+esac

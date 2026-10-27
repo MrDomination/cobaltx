@@ -1,0 +1,41 @@
+#!/bin/bash
+# CobaltX handheld setup - runs at every boot (before the login screen).
+# Recognises handheld gaming PCs and turns on what they need:
+#   /etc/cobaltx/handheld   -> on-screen keyboard starts on the desktop too
+#   hhd@<user>              -> Handheld Daemon: built-in controller, back buttons
+#                              (Ally M1/M2, Legion Go, Claw, ...). Not needed on
+#                              the Steam Deck, whose controls work natively.
+vendor=$(cat /sys/class/dmi/id/sys_vendor 2>/dev/null)
+product=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
+board=$(cat /sys/class/dmi/id/board_name 2>/dev/null)
+id="$vendor $product $board"
+
+kind=""
+case "${id^^}" in
+    *RC71L*|*RC72L*|*RC73*|*"ROG ALLY"*|*"XBOX ALLY"*) kind=hhd ;;   # ROG Ally / Ally X / Xbox Ally (X)
+    *LENOVO*83E1*|*LENOVO*83L3*|*LENOVO*83N6*|*LENOVO*83Q2*|*LENOVO*83Q3*) kind=hhd ;;  # Legion Go / Go S
+    *"CLAW"*) kind=hhd ;;                                             # MSI Claw
+    *AYANEO*|*ONE-NETBOOK*|*AOKZOE*|"GPD "*|*"ZOTAC GAMING ZONE"*) kind=hhd ;;
+    *JUPITER*|*GALILEO*) kind=deck ;;                                 # Steam Deck LCD / OLED
+esac
+
+if [ -z "$kind" ]; then
+    rm -f /etc/cobaltx/handheld
+    exit 0
+fi
+mkdir -p /etc/cobaltx
+echo "$id" > /etc/cobaltx/handheld
+echo "handheld detected: $id ($kind)"
+
+[ "$kind" = hhd ] || exit 0
+[ -e /usr/lib/systemd/system/hhd@.service ] || { echo "Handheld Daemon not installed"; exit 0; }
+user=$(awk -F: '$3 >= 1000 && $3 < 60000 && $7 !~ /nologin|false/ {print $1; exit}' /etc/passwd)
+[ -n "$user" ] || exit 0
+if ! systemctl is-enabled --quiet "hhd@$user.service"; then
+    # the live user (cobalt) is gone after installing - drop its old instance
+    for u in $(systemctl list-unit-files 'hhd@*.service' --state=enabled --no-legend | awk '{print $1}'); do
+        systemctl disable "$u"
+    done
+    systemctl enable "hhd@$user.service"
+fi
+systemctl --no-block start "hhd@$user.service"

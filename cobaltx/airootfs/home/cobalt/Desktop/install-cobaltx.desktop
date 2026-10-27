@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install CobaltX
+Comment=Install CobaltX to your hard drive
+Exec=sudo -E calamares
+Icon=system-software-install
+Terminal=false
+Categories=System;

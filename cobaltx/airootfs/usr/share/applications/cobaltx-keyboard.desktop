@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=On-Screen Keyboard
+GenericName=CobaltX Keyboard
+Comment=Type with a controller or touchscreen
+Exec=/usr/local/bin/cobaltx-keyboard --toggle
+Icon=input-keyboard-virtual
+Terminal=false
+Categories=Utility;Accessibility;
+Keywords=keyboard;osk;touch;handheld;

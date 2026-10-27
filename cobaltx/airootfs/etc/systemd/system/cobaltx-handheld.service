@@ -1,0 +1,11 @@
+[Unit]
+Description=CobaltX: detect handheld gaming PCs (controls, on-screen keyboard)
+Before=display-manager.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/cobaltx/handheld-setup
+
+[Install]
+WantedBy=multi-user.target

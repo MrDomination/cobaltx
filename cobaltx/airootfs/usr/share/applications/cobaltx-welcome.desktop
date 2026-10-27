@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=CobaltX Welcome
+GenericName=Welcome to CobaltX
+Comment=Learn about your CobaltX system and quick actions
+Icon=cobaltx-welcome
+Exec=/usr/local/bin/cobaltx-welcome-app
+Terminal=false
+Categories=System;Settings;
+Keywords=welcome;getting;started;help;setup;
+StartupNotify=true

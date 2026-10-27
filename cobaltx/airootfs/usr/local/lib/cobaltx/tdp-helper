@@ -1,0 +1,197 @@
+#!/usr/bin/python3 -I
+"""CobaltX performance / TDP helper.
+
+  tdp-helper info                 JSON: what this device supports + current values (any user)
+  tdp-helper set-profile <name>   quiet | balanced | performance        (root, via pkexec)
+  tdp-helper set-tdp <watts>      custom power limit                     (root, via pkexec)
+  tdp-helper restore              re-apply the saved choice (boot, resume, charger plugged in)
+
+Supported power-limit backends, best first:
+  asus-armoury   ROG Ally / Ally X / Xbox Ally (newer kernels: firmware-attributes)
+  asus-wmi       ROG Ally / Ally X / Xbox Ally (older kernels: ppt_* files)
+  amdgpu         Steam Deck (GPU power cap of the APU)
+Everything with ACPI platform profiles also gets Silent / Balanced / Performance.
+"""
+import glob
+import json
+import os
+import sys
+from pathlib import Path
+
+STATE = Path("/var/lib/cobaltx/tdp.json")
+PROFILE = Path("/sys/firmware/acpi/platform_profile")
+PROFILE_CHOICES = Path("/sys/firmware/acpi/platform_profile_choices")
+ARMOURY = Path("/sys/class/firmware-attributes/asus-armoury/attributes")
+ASUS_WMI = Path("/sys/devices/platform/asus-nb-wmi")
+DMI = Path("/sys/class/dmi/id")
+
+# kernel profile name -> what we call it
+PROFILE_NAMES = {"low-power": "quiet", "quiet": "quiet", "cool": "quiet",
+                 "balanced": "balanced", "performance": "performance"}
+
+
+def _read(p, default=""):
+    try:
+        return Path(p).read_text().strip()
+    except OSError:
+        return default
+
+
+def _write(p, value):
+    Path(p).write_text(str(value))
+
+
+def device():
+    vendor = _read(DMI / "sys_vendor")
+    product = _read(DMI / "product_name")
+    board = _read(DMI / "board_name")
+    return vendor, product, board
+
+
+def is_ally():
+    _, product, board = device()
+    s = (product + " " + board).upper()
+    return any(k in s for k in ("RC71L", "RC72L", "RC73", "ROG ALLY", "XBOX ALLY"))
+
+
+def is_deck():
+    _, product, _ = device()
+    return product in ("Jupiter", "Galileo")
+
+
+# ----------------------------------------------------------------- backends
+def _armoury_attrs():
+    """The three PPT limits (SPL, SPPT, FPPT) exposed by asus-armoury."""
+    if not ARMOURY.is_dir():
+        return []
+    names = [n for n in ("ppt_pl1_spl", "ppt_pl2_sppt", "ppt_pl3_fppt", "ppt_fppt")
+             if (ARMOURY / n / "current_value").exists()]
+    return [ARMOURY / n for n in names]
+
+
+def _deck_hwmon():
+    for hw in glob.glob("/sys/class/hwmon/hwmon*"):
+        if _read(f"{hw}/name") == "amdgpu" and os.path.exists(f"{hw}/power1_cap"):
+            return Path(hw)
+    return None
+
+
+def backend():
+    """-> dict(name, min, max, current) or None"""
+    attrs = _armoury_attrs()
+    if attrs:
+        spl = attrs[0]
+        lo = int(_read(spl / "min_value", "7") or 7)
+        hi = int(_read(spl / "max_value", "30") or 30)
+        return {"name": "asus-armoury", "min": lo, "max": hi,
+                "current": int(_read(spl / "current_value", "0") or 0) or None}
+    if is_ally() and (ASUS_WMI / "ppt_pl1_spl").exists():
+        cur = _read(ASUS_WMI / "ppt_pl1_spl")
+        return {"name": "asus-wmi", "min": 7, "max": 30,
+                "current": int(cur) if cur.isdigit() else None}
+    if is_deck():
+        hw = _deck_hwmon()
+        if hw:
+            cur = _read(hw / "power1_cap", "0")
+            return {"name": "amdgpu", "min": 3, "max": 15,
+                    "current": round(int(cur) / 1_000_000) if cur.isdigit() and int(cur) else None}
+    return None
+
+
+def apply_tdp(watts):
+    b = backend()
+    if not b:
+        raise SystemExit("this device has no supported power-limit control")
+    w = max(b["min"], min(b["max"], int(watts)))
+    if b["name"] == "asus-armoury":
+        for attr in _armoury_attrs():
+            hi = int(_read(attr / "max_value", str(w)) or w)
+            _write(attr / "current_value", min(w, hi))
+    elif b["name"] == "asus-wmi":
+        for f in ("ppt_pl1_spl", "ppt_pl2_sppt", "ppt_fppt"):
+            if (ASUS_WMI / f).exists():
+                _write(ASUS_WMI / f, w)
+    elif b["name"] == "amdgpu":
+        _write(_deck_hwmon() / "power1_cap", w * 1_000_000)
+    return w
+
+
+def profiles():
+    """Our names for the profiles this machine offers, in order."""
+    raw = _read(PROFILE_CHOICES).split()
+    out = []
+    for name in ("quiet", "balanced", "performance"):
+        if any(PROFILE_NAMES.get(r) == name for r in raw):
+            out.append(name)
+    return out
+
+
+def apply_profile(name):
+    raw = _read(PROFILE_CHOICES).split()
+    for r in raw:
+        if PROFILE_NAMES.get(r) == name:
+            _write(PROFILE, r)
+            return
+    raise SystemExit(f"profile {name} not available")
+
+
+# -------------------------------------------------------------------- state
+def load_state():
+    try:
+        return json.loads(STATE.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def save_state(state):
+    STATE.parent.mkdir(parents=True, exist_ok=True)
+    STATE.write_text(json.dumps(state))
+
+
+def info():
+    b = backend()
+    state = load_state()
+    cur_profile = PROFILE_NAMES.get(_read(PROFILE), "")
+    return {
+        "profiles": profiles(),
+        "profile": cur_profile,
+        "tdp": b,
+        "mode": state.get("mode", "profile"),
+        "custom": state.get("tdp"),
+    }
+
+
+def main(argv):
+    cmd = argv[1] if len(argv) > 1 else "info"
+    if cmd == "info":
+        print(json.dumps(info()))
+        return 0
+    if os.geteuid() != 0:
+        print("needs root (run through pkexec)", file=sys.stderr)
+        return 1
+    state = load_state()
+    if cmd == "set-profile" and len(argv) > 2:
+        apply_profile(argv[2])                 # on the Ally this also resets the PPT limits
+        state.update(mode="profile", profile=argv[2])
+    elif cmd == "set-tdp" and len(argv) > 2:
+        w = apply_tdp(argv[2])
+        state.update(mode="custom", tdp=w)
+    elif cmd == "restore":
+        try:
+            if state.get("profile"):
+                apply_profile(state["profile"])
+            if state.get("mode") == "custom" and state.get("tdp"):
+                apply_tdp(state["tdp"])
+        except (OSError, SystemExit) as e:
+            print("restore:", e, file=sys.stderr)
+        return 0
+    else:
+        print(__doc__)
+        return 2
+    save_state(state)
+    print(json.dumps(info()))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))

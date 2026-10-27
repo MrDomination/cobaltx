@@ -1,0 +1,15 @@
+#!/bin/bash
+# Started inside the X Mode session: the KDE helper services the session
+# needs (keyboard shortcuts like Alt+F4 / Alt+Tab / Alt+F3, password prompts),
+# then X Mode itself. When X Mode exits, the session ends.
+start_first() {
+    for p in "$@"; do
+        if [ -x "$p" ]; then "$p" & return 0; fi
+    done
+    return 1
+}
+start_first /usr/lib/kglobalacceld /usr/libexec/kglobalacceld || echo "kglobalacceld not found"
+start_first /usr/lib/polkit-kde-authentication-agent-1 /usr/libexec/polkit-kde-authentication-agent-1 || echo "polkit agent not found"
+# On-screen keyboard (X Mode forwards the controller to it)
+/usr/local/bin/cobaltx-keyboard --no-gamepad &
+exec /usr/local/bin/cobaltx-xmode

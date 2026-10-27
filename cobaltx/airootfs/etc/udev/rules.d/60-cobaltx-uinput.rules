@@ -1,0 +1,3 @@
+# CobaltX On-Screen Keyboard types through a virtual keyboard: let the
+# logged-in user (and nobody else) use /dev/uinput. Steam Input needs the same.
+KERNEL=="uinput", SUBSYSTEM=="misc", OPTIONS+="static_node=uinput", TAG+="uaccess"

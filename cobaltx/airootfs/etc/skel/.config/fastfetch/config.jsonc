@@ -1,0 +1,14 @@
+{
+  "logo": {
+    "type": "file",
+    "source": "/usr/share/cobaltx/fastfetch-logo.txt",
+    "color": { "1": "38;2;20;70;160", "2": "38;2;61;174;233" },
+    "padding": { "right": 3 }
+  },
+  "display": { "color": { "keys": "cyan" } },
+  "modules": [
+    "title", "separator", "os", "kernel", "uptime", "packages",
+    "shell", "display", "de", "wm", "terminal",
+    "cpu", "gpu", "memory", "disk", "break", "colors"
+  ]
+}

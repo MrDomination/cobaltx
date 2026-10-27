@@ -1,0 +1,24 @@
+#!/bin/bash
+# Switch between the X Mode session and the KDE Plasma desktop.
+#   cobaltx-session-select xmode                -> go to X Mode now
+#   cobaltx-session-select desktop              -> go to the Plasma desktop now
+#   cobaltx-session-select --start-in-xmode on|off  -> what to boot into
+#   cobaltx-session-select --consume            -> called when a session starts
+HELPER=/usr/local/lib/cobaltx/session-helper
+CONF=/etc/sddm.conf.d/zz-cobaltx-autologin.conf
+
+case "$1" in
+    xmode)   exec pkexec "$HELPER" switch cobaltx-xmode ;;
+    desktop) exec pkexec "$HELPER" switch plasma ;;
+    --start-in-xmode)
+        case "$2" in
+            on)  exec pkexec "$HELPER" default-on ;;
+            off) exec pkexec "$HELPER" default-off ;;
+            *)   echo "usage: $0 --start-in-xmode on|off"; exit 2 ;;
+        esac ;;
+    --consume)
+        # only bother polkit if a one-time switch is actually pending
+        grep -q "cobaltx: switch" "$CONF" 2>/dev/null && pkexec "$HELPER" consume
+        exit 0 ;;
+    *) echo "usage: $0 xmode|desktop | --start-in-xmode on|off"; exit 2 ;;
+esac

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=CobaltX On-Screen Keyboard
+Exec=/usr/local/bin/cobaltx-keyboard --autostart
+NoDisplay=true
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=2

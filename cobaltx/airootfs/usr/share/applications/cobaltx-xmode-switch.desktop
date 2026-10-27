@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=X Mode
+GenericName=Handheld game mode
+Comment=Switch to the fullscreen, controller-friendly X Mode session
+Exec=/usr/local/bin/cobaltx-session-select xmode
+Icon=cobaltx-xmode
+Terminal=false
+Categories=Game;
+Keywords=xmode;handheld;game mode;deck;controller;

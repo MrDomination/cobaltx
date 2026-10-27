@@ -1,0 +1,36 @@
+#!/bin/bash
+# Runs inside the new system at the end of the CobaltX install when the user
+# picked "X Mode" on the installer's X Mode page.
+[ "$1" = enable ] || exit 0
+user="$(awk -F: '$3 >= 1000 && $3 < 60000 && $1 != "cobalt" && $1 != "nobody" {print $1; exit}' /etc/passwd)"
+[ -n "$user" ] || { echo "no user found"; exit 0; }
+
+mkdir -p /etc/cobaltx /etc/sddm.conf.d /var/lib/sddm
+cat > /etc/cobaltx/xmode.conf <<CONF
+# Set by the CobaltX installer
+XMODE_DEFAULT=1
+AUTOLOGIN=1
+CONF
+
+cat > /etc/sddm.conf.d/zz-cobaltx-autologin.conf <<CONF
+# Managed by CobaltX X Mode
+[Autologin]
+User=$user
+Session=cobaltx-xmode.desktop
+Relogin=false
+CONF
+
+# SDDM reads /etc/sddm.conf last; the installer's "Session=plasma" there would
+# override X Mode, so remove the autologin session keys from it.
+if [ -f /etc/sddm.conf ]; then
+    sed -i '/^\[Autologin\]/,/^\[/{/^Session=/d;/^Relogin=/d;/^User=$/d}' /etc/sddm.conf
+fi
+
+# Pre-select X Mode on the login screen too (if autologin is ever turned off)
+cat > /var/lib/sddm/state.conf <<CONF
+[Last]
+Session=/usr/share/wayland-sessions/cobaltx-xmode.desktop
+User=$user
+CONF
+chown sddm:sddm /var/lib/sddm/state.conf 2>/dev/null || true
+echo "X Mode enabled at login for $user"

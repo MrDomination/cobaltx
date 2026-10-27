@@ -1,0 +1,2 @@
+# The Ally's firmware resets its power limits when the charger is (un)plugged
+SUBSYSTEM=="power_supply", ATTR{type}=="Mains", ACTION=="change", RUN+="/usr/bin/systemctl --no-block start cobaltx-tdp.service"

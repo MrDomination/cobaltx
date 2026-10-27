@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+# X Mode - CobaltX fullscreen handheld game launcher
+import os
+import sys
+
+here = os.path.dirname(os.path.realpath(__file__))
+share = os.path.normpath(os.path.join(here, "..", "..", "share", "cobaltx-xmode"))
+if not os.path.isfile(os.path.join(share, "Main.qml")):
+    share = "/usr/share/cobaltx-xmode"
+sys.path.insert(0, share)
+
+from xmode_app import main  # noqa: E402
+
+sys.exit(main(share))

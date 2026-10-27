@@ -1,0 +1,11 @@
+[Unit]
+Description=CobaltX: re-apply the power limit after sleep
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+ConditionPathExists=/var/lib/cobaltx/tdp.json
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/cobaltx/tdp-helper restore
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target

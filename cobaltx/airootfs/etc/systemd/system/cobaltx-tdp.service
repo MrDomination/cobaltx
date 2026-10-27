@@ -1,0 +1,11 @@
+[Unit]
+Description=CobaltX: re-apply the chosen performance mode / power limit
+After=systemd-modules-load.service
+ConditionPathExists=/var/lib/cobaltx/tdp.json
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/cobaltx/tdp-helper restore
+
+[Install]
+WantedBy=multi-user.target

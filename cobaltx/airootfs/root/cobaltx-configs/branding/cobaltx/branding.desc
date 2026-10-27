@@ -1,0 +1,34 @@
+---
+componentName: cobaltx
+
+welcomeStyleCalamares: true
+welcomeExpandingLogo: true
+
+windowExpanding: normal
+windowSize: 800px,520px
+windowPlacement: center
+
+strings:
+    productName:         CobaltX
+    shortProductName:    CobaltX
+    version: 0.3
+    shortVersion: 0.3
+    versionedName: CobaltX 0.3
+    shortVersionedName: CobaltX 0.3
+    bootloaderEntryName: CobaltX
+    productUrl:          https://github.com/yourname/cobaltx
+    supportUrl:          https://github.com/yourname/cobaltx/issues
+    releaseNotesUrl:     https://github.com/yourname/cobaltx/releases
+
+images:
+    productLogo:         "logo.png"
+    productIcon:         "install-icon.png"
+    productWelcome:      "welcome.png"
+
+slideshow:               "show.qml"
+
+style:
+    sidebarBackground:    "#0047AB"
+    sidebarText:          "#FFFFFF"
+    sidebarTextSelect:    "#00E5FF"
+    sidebarTextHighlight: "#00E5FF"

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=CobaltX session switch cleanup
+Exec=/usr/local/bin/cobaltx-session-select --consume
+NoDisplay=true
+OnlyShowIn=KDE;
+X-KDE-autostart-phase=1

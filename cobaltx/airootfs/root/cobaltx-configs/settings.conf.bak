@@ -1,0 +1,45 @@
+modules-search:
+- local
+- /usr/lib/calamares/modules
+instances:
+- id: rootfs
+  module: unpackfs
+  config: unpackfs.conf
+- id: xmode
+  module: packagechooser
+  config: packagechooser-xmode.conf
+- id: xmode
+  module: contextualprocess
+  config: contextualprocess-xmode.conf
+sequence:
+- show:
+  - welcome
+  - locale
+  - keyboard
+  - partition
+  - users
+  - packagechooser@xmode
+  - summary
+- exec:
+  - partition
+  - mount
+  - unpackfs
+  - machineid
+  - fstab
+  - locale
+  - keyboard
+  - localecfg
+  - users
+  - networkcfg
+  - hwclock
+  - displaymanager
+  - services-systemd
+  - bootloader
+  - shellprocess
+  - contextualprocess@xmode
+  - umount
+- show:
+  - finished
+branding: cobaltx
+prompt-install: true
+dont-chroot: false

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=CobaltX
+Description=CobaltX boot splash theme
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/cobaltx
+ScriptFile=/usr/share/plymouth/themes/cobaltx/cobaltx.script
