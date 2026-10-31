@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Welcome to CobaltX</title>
+<style>
+  :root {
+    --cobalt: #0047AB;
+    --cyan: #00E5FF;
+    --cyan-dim: #00B8D4;
+    --navy: #0A1428;
+    --navy-deep: #050a18;
+    --ice: #E8F4FF;
+    --ice-dim: #B8D4E8;
+    --text-muted: #7A8FA8;
+    --card-bg: rgba(0, 71, 171, 0.12);
+    --card-border: rgba(0, 229, 255, 0.2);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow-y: auto; overflow-x: hidden; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+    background: var(--navy);
+    color: var(--ice);
+    line-height: 1.6;
+    background-image:
+      radial-gradient(at 20% 10%, rgba(0, 71, 171, 0.2) 0%, transparent 50%),
+      radial-gradient(at 80% 90%, rgba(0, 229, 255, 0.08) 0%, transparent 50%);
+    background-attachment: fixed;
+    padding: 24px 40px;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  main { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; padding: 12px 0 28px; }
+  .logo { width: 96px; height: 96px; margin: 0 auto 14px; filter: drop-shadow(0 0 24px rgba(0, 229, 255, 0.3)); }
+  h1 {
+    font-size: 38px; font-weight: 700; letter-spacing: -1px;
+    background: linear-gradient(135deg, var(--ice) 0%, var(--cyan) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 4px;
+  }
+  .tagline { color: var(--cyan); font-size: 15px; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .version { color: var(--text-muted); font-size: 12px; font-family: "JetBrains Mono", monospace; }
+
+  /* Startup toggle - right under the header so nobody has to scroll for it */
+  .startup-toggle {
+    display: inline-flex; align-items: center; gap: 12px;
+    margin-top: 18px; padding: 10px 18px;
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 999px;
+    cursor: pointer; user-select: none; font-size: 13px; color: var(--ice-dim);
+    transition: border-color 0.2s;
+  }
+  .startup-toggle:hover { border-color: var(--cyan); }
+  .switch { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute; inset: 0; border-radius: 22px;
+    background: #2A3448; transition: background 0.2s;
+  }
+  .slider::before {
+    content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px;
+    border-radius: 50%; background: var(--ice); transition: transform 0.2s;
+  }
+  .switch input:checked + .slider { background: var(--cobalt); box-shadow: 0 0 0 1px var(--cyan) inset; }
+  .switch input:checked + .slider::before { transform: translateX(16px); background: var(--cyan); }
+  .startup-hint { color: var(--text-muted); font-size: 11px; margin-top: 6px; }
+
+  section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 11px; color: var(--cyan); letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 12px; font-family: "JetBrains Mono", monospace; font-weight: 500;
+  }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px;
+    padding: 16px; cursor: pointer; transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px; text-align: left;
+    color: var(--ice); font-family: inherit; font-size: 14px;
+  }
+  .card:hover { background: rgba(0, 71, 171, 0.25); border-color: var(--cyan); transform: translateY(-2px); }
+  .card:active { transform: translateY(0); }
+  .card-icon { font-size: 24px; line-height: 1; flex-shrink: 0; }
+  .card-content { flex: 1; min-width: 0; }
+  .card-title { font-weight: 600; margin-bottom: 2px; }
+  .card-desc { color: var(--text-muted); font-size: 12px; line-height: 1.3; }
+
+  .info-panel { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 20px; }
+  .info-row {
+    display: flex; justify-content: space-between; gap: 16px; padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 229, 255, 0.08); font-size: 13px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { color: var(--text-muted); font-family: "JetBrains Mono", monospace; flex-shrink: 0; }
+  .info-value { color: var(--ice); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .link {
+    background: transparent; border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 12px; text-align: center; cursor: pointer; color: var(--ice-dim);
+    font-family: inherit; font-size: 13px; transition: all 0.2s;
+  }
+  .link:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0, 229, 255, 0.05); }
+
+  .footer { text-align: center; padding: 16px 0 10px; border-top: 1px solid var(--card-border); }
+  .footer-text { color: var(--text-muted); font-size: 11px; font-family: "JetBrains Mono", monospace; }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--navy-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--cobalt); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
+</style>
+</head>
+<body>
+<main>
+
+<header class="header">
+  <svg class="logo" viewBox="0 0 680 690" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="340,40 620,200 620,520 340,680 60,520 60,200" fill="#0047AB" stroke="#00E5FF" stroke-width="10"/>
+    <polygon points="340,100 570,235 570,485 340,620 110,485 110,235" fill="none" stroke="#00E5FF" stroke-width="4" opacity="0.5"/>
+    <path d="M 175,200 L 285,200 L 340,300 L 395,200 L 505,200 L 390,360 L 505,520 L 395,520 L 340,420 L 285,520 L 175,520 L 290,360 Z" fill="#00E5FF"/>
+  </svg>
+  <h1>Welcome to CobaltX</h1>
+  <p class="tagline">Forged for play</p>
+  <p class="version">v0.2 · Codename: Sparked</p>
+
+  <label class="startup-toggle">
+    <span class="switch">
+      <input type="checkbox" id="autostart" checked>
+      <span class="slider"></span>
+    </span>
+    <span>Show this window when I log in</span>
+  </label>
+  <p class="startup-hint">You can always reopen it from the start menu: CobaltX Welcome</p>
+</header>
+
+<section>
+  <div class="section-title">// Quick Actions</div>
+  <div class="card-grid">
+    <button class="card" onclick="runAction('update')">
+      <div class="card-icon">🔄</div>
+      <div class="card-content"><div class="card-title">Update System</div><div class="card-desc">Get the latest packages</div></div>
+    </button>
+    <button class="card" onclick="runAction('nvidia')">
+      <div class="card-icon">💻</div>
+      <div class="card-content"><div class="card-title">Install NVIDIA</div><div class="card-desc">Proprietary GPU drivers</div></div>
+    </button>
+    <button class="card" onclick="runAction('steam')">
+      <div class="card-icon">🎮</div>
+      <div class="card-content"><div class="card-title">Launch Steam</div><div class="card-desc">Start gaming instantly</div></div>
+    </button>
+    <button class="card" onclick="runAction('heroic')">
+      <div class="card-icon">🦊</div>
+      <div class="card-content"><div class="card-title">Launch Heroic</div><div class="card-desc">Epic, GOG, Amazon</div></div>
+    </button>
+    <button class="card" onclick="runAction('bottles')">
+      <div class="card-icon">🍶</div>
+      <div class="card-content"><div class="card-title">Launch Bottles</div><div class="card-desc">Windows apps in containers</div></div>
+    </button>
+    <button class="card" onclick="runAction('discover')">
+      <div class="card-icon">📦</div>
+      <div class="card-content"><div class="card-title">App Store</div><div class="card-desc">Browse more software</div></div>
+    </button>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">// System Info</div>
+  <div class="info-panel">
+    <div class="info-row"><span class="info-label">OS</span><span class="info-value" id="info-os">CobaltX</span></div>
+    <div class="info-row"><span class="info-label">Kernel</span><span class="info-value" id="info-kernel">Loading...</span></div>
+    <div class="info-row"><span class="info-label">CPU</span><span class="info-value" id="info-cpu">Loading...</span></div>
+    <div class="info-row"><span class="info-label">Memory</span><span class="info-value" id="info-ram">Loading...</span></div>
+    <div class="info-row"><span class="info-label">GPU</span><span class="info-value" id="info-gpu">Loading...</span></div>
+    <div class="info-row"><span class="info-label">Desktop</span><span class="info-value" id="info-desktop">KDE Plasma</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">// Links & Community</div>
+  <div class="links-grid">
+    <button class="link" onclick="openLink('https://mrdomination.github.io/cobaltx/')">🌐 Website</button>
+    <button class="link" onclick="openLink('https://github.com/MrDomination/cobaltx')">🐙 GitHub</button>
+    <button class="link" onclick="openLink('https://github.com/MrDomination/cobaltx/issues')">🐛 Report Bug</button>
+    <button class="link" onclick="openLink('https://buymeacoffee.com/cobaltx')">☕ Support</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-text">CobaltX · Made with 💙 in Phuket</p>
+</footer>
+
+</main>
+
+<script>
+  // JS -> Python bridge: the launcher watches document.title
+  function send(msg) {
+    document.title = msg;
+    setTimeout(() => { document.title = 'Welcome to CobaltX'; }, 100);
+  }
+  function runAction(action) { send('ACTION:' + action); }
+  function openLink(url) { send('LINK:' + url); }
+
+  document.getElementById('autostart').addEventListener('change', (e) => {
+    send('AUTOSTART:' + (e.target.checked ? 'true' : 'false'));
+  });
+
+  // Python -> JS: the launcher calls these once the page has loaded
+  function setSysInfo(info) {
+    const set = (id, v) => { document.getElementById(id).textContent = v || 'Unknown'; };
+    set('info-os', info.os);
+    set('info-kernel', info.kernel);
+    set('info-cpu', info.cpu);
+    set('info-ram', info.ram);
+    set('info-gpu', info.gpu);
+    set('info-desktop', info.desktop);
+  }
+  function setAutostart(enabled) {
+    document.getElementById('autostart').checked = enabled;
+  }
+</script>
+</body>
+</html>
