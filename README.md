@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/33615122/README.md)
+[README.md](https://github.com/user-attachments/files/34208103/README.md)
 <div align="center">
 
 # CobaltX
@@ -170,7 +170,7 @@ Individual software packages included in CobaltX retain their own licenses.
 
 ## 👤 Author
 
-CobaltX is crafted in Phuket, Thailand by a passionate gamer who wanted Linux to be the best gaming OS possible.
+CobaltX is crafted in Phuket, Thailand by a passionate Russian gamer who wanted Linux to be the best gaming OS possible.
 
 ---
 
@@ -178,6 +178,6 @@ CobaltX is crafted in Phuket, Thailand by a passionate gamer who wanted Linux to
 
 **[🌐 Website](https://mrdomination.github.io/cobaltx/)** · **[📥 Download](https://mrdomination.github.io/cobaltx/)** · **[☕ Support](https://buymeacoffee.com/cobaltx)** · **[🐛 Issues](https://github.com/MrDomination/cobaltx/issues)**
 
-Made with 💙 in Phuket · Forged for play
+Made With 💙 by a Russian in Phuket, Thailand · Forged for play
 
 </div>
